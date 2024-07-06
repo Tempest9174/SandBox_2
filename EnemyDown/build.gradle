@@ -47,3 +47,12 @@ processResources {
         expand props
     }
 }
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+// compileJavaタスクのエンコーディング
+compileJava.options.encoding = 'UTF-8'
+// compileTestJavaタスクのエンコーディング
+compileTestJava.options.encoding = 'UTF-8'
+// javadocタスクのエンコーディング
+javadoc.options.encoding = 'UTF-8'
