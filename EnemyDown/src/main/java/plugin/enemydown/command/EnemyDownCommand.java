@@ -1,5 +1,6 @@
 package plugin.enemydown.command;
 
+import java.util.ArrayList;
 import org.bukkit.event.Listener;
 import java.util.List;
 import java.util.SplittableRandom;
@@ -16,17 +17,27 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import plugin.enemydown.data.PlayerScore;
 
 public class EnemyDownCommand implements CommandExecutor, Listener{
 
-  private  int score;
-  private Player player;
-
+    private List<PlayerScore> playerScoreList = new ArrayList<>();
   @Override
   public boolean onCommand(CommandSender sender, Command command, String label,
       String[] args) {
-    if(sender instanceof Player player){
-      this.player = player;
+    if (sender instanceof Player player){
+      if(playerScoreList.isEmpty()) {
+        PlayerScore newplayer = new PlayerScore();
+        newplayer.setPlayerName(player.getName());
+        playerScoreList.add(newplayer);
+      }else{
+        for(PlayerScore playerScore : playerScoreList )
+          if(!playerScore.getPlayerName().equals(player.getName())){
+            PlayerScore newplayer = new PlayerScore();
+            newplayer.setPlayerName(player.getName());
+            playerScoreList.add(newplayer);
+
+          }
       World world = player.getWorld();
 
       player.setHealth(20);
